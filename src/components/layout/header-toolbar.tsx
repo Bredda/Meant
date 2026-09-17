@@ -1,7 +1,8 @@
+import { Link } from "@tanstack/react-router";
 import { MessageSquare, Search, Settings } from "lucide-react";
 import { cn } from "@/utils/tailwind";
 import ToggleTheme from "../toggle-theme";
-import { Button } from "../ui/button";
+import { Button, buttonVariants } from "../ui/button";
 
 interface HeaderToolbar {
   className?: string;
@@ -17,9 +18,13 @@ export function HeaderToolbar({ className }: HeaderToolbar) {
         <MessageSquare />
       </Button>
       <ToggleTheme variant="secondary" />
-      <Button size="icon" variant="secondary">
+      <Link
+        className={buttonVariants({ size: "icon", variant: "secondary" })}
+        search={{ tab: "ui-prefs" }}
+        to="/settings"
+      >
         <Settings />
-      </Button>
+      </Link>
     </div>
   );
 }

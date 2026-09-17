@@ -7,6 +7,12 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
+
+}
+
+
+:root {
+    --font-scale: 1;
   --background: oklch(0.9578 0.0058 264.5321);
   --foreground: oklch(0.4355 0.0430 279.3250);
   --card: oklch(0.9335 0.0087 264.5206);
@@ -174,6 +180,17 @@
   --tracking-widest: calc(var(--tracking-normal) + 0.1em);
 }
 
+[data-font-scale="small"] {
+  --font-scale: 0.875;
+}
+
+[data-font-scale="default"] {
+  --font-scale: 1;
+}
+
+[data-font-scale="large"] {
+  --font-scale: 1.125;
+}
 
 @layer base {
   * {
@@ -184,6 +201,7 @@
   }
   html {
     @apply font-sans;
+     font-size: calc(16px * var(--font-scale));
   }
 
   .draglayer {
