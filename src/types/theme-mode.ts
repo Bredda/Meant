@@ -1,1 +1,3 @@
-export type ThemeMode = "dark" | "light" | "system";
+export const THEME_MODES = ["light", "dark", "system"] as const;
+
+export type ThemeMode = (typeof THEME_MODES)[number];

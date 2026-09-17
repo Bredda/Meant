@@ -1,81 +1,56 @@
 import { createContext, useContext, useEffect, useState } from "react";
-import { LOCAL_STORAGE_KEYS } from "@/constants";
-import { ipc } from "@/ipc/manager";
+import { getUserConfig, saveUserConfig } from "@/actions/settings";
 import type { ThemeMode } from "@/types/theme-mode";
 
 interface ThemeProviderProps {
   children: React.ReactNode;
-  defaultTheme?: ThemeMode;
-  storageKey?: string;
 }
 
 interface ThemeProviderState {
-  syncWithLocalTheme: () => void;
+  resolvedTheme: "dark" | "light";
   theme: ThemeMode;
   toggleTheme: () => void;
 }
 
 const initialState: ThemeProviderState = {
-  syncWithLocalTheme: () => null,
+  resolvedTheme: "light",
   theme: "system",
   toggleTheme: () => null,
 };
 
 const ThemeProviderContext = createContext<ThemeProviderState>(initialState);
 
-export function ThemeProvider({
-  children,
-  defaultTheme = "system",
-  storageKey = LOCAL_STORAGE_KEYS.THEME,
-  ...props
-}: ThemeProviderProps) {
-  const [theme, setTheme] = useState<ThemeMode>(
-    () => (localStorage.getItem(storageKey) as ThemeMode) || defaultTheme
-  );
+function resolveTheme(theme: ThemeMode): "dark" | "light" {
+  if (theme === "system") {
+    return window.matchMedia("(prefers-color-scheme: dark)").matches
+      ? "dark"
+      : "light";
+  }
+  return theme;
+}
+
+export function ThemeProvider({ children, ...props }: ThemeProviderProps) {
+  const [theme, setTheme] = useState<ThemeMode>("system");
+  const resolvedTheme = resolveTheme(theme);
 
   useEffect(() => {
-    syncWithLocalTheme();
-  });
-
-  const applyTheme = (newTheme: ThemeMode) => {
-    localStorage.setItem(LOCAL_STORAGE_KEYS.THEME, newTheme);
-    setTheme(newTheme);
-  };
-
-  const toggleTheme = async () => {
-    const isDarkMode = await ipc.client.theme.toggleThemeMode();
-    const newTheme = isDarkMode ? "dark" : "light";
-    applyTheme(newTheme);
-  };
-
-  const syncWithLocalTheme = async () => {
-    const local = localStorage.getItem(
-      LOCAL_STORAGE_KEYS.THEME
-    ) as ThemeMode | null;
-    if (!local) {
-      applyTheme("system");
-      return;
-    }
-    await applyTheme(local);
-  };
+    getUserConfig().then((config) => setTheme(config.theme));
+  }, []);
 
   useEffect(() => {
     const root = window.document.documentElement;
     root.classList.remove("light", "dark");
-    if (theme === "system") {
-      const systemTheme = window.matchMedia("(prefers-color-scheme: dark)")
-        .matches
-        ? "dark"
-        : "light";
+    root.classList.add(resolvedTheme);
+  }, [resolvedTheme]);
 
-      root.classList.add(systemTheme);
-      return;
-    }
-    root.classList.add(theme);
-  }, [theme]);
+  const toggleTheme = async () => {
+    const newTheme = resolvedTheme === "dark" ? "light" : "dark";
+    setTheme(newTheme);
+    await saveUserConfig({ theme: newTheme });
+  };
 
   const value = {
-    syncWithLocalTheme,
+    resolvedTheme,
     theme,
     toggleTheme,
   };
