@@ -1,13 +1,16 @@
-import { Brain } from "lucide-react";
+import { Brain, PanelLeftIcon, PanelRight } from "lucide-react";
 import { useEffect, useState, useTransition } from "react";
 import { getAppVersion } from "@/actions/app";
 import { Separator } from "@/components/ui/separator";
+import { Button } from "../ui/button";
+import { useSidebar } from "../ui/sidebar";
 import { HeaderToolbar } from "./header-toolbar";
 
 export function SiteHeader() {
   const [appVersion, setAppVersion] = useState("0.0.0");
   const [, startGetAppVersion] = useTransition();
-
+  const { state, toggleSidebar } = useSidebar();
+  const isExpanded = state === "expanded";
   useEffect(
     () => startGetAppVersion(() => getAppVersion().then(setAppVersion)),
     []
@@ -23,12 +26,18 @@ export function SiteHeader() {
           <span className="font-bold text-primary">Meant.</span>
           <span className="text-muted-foreground text-xs">v{appVersion}</span>
         </div>
-
         <Separator
           className="mr-2 data-vertical:h-4 data-vertical:self-auto"
           orientation="vertical"
         />
-
+        <Button
+          className="ml-auto w-fit"
+          onClick={toggleSidebar}
+          variant="outline"
+        >
+          {isExpanded ? <PanelLeftIcon /> : <PanelRight />}
+        </Button>
+        <span className="flex-1" />
         <HeaderToolbar className="w-full sm:ml-auto sm:w-auto" />
       </div>
     </header>

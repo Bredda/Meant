@@ -1,13 +1,10 @@
 "use client";
-
-import { PanelLeftIcon, PanelRight } from "lucide-react";
 import {
   SidebarGroup,
   SidebarGroupContent,
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-  useSidebar,
 } from "@/components/ui/sidebar";
 
 export function NavMain({
@@ -20,16 +17,9 @@ export function NavMain({
     icon: React.ReactNode;
   }[];
 } & React.ComponentPropsWithoutRef<typeof SidebarGroup>) {
-  const { state, toggleSidebar } = useSidebar();
-  const isExpanded = state === "expanded";
   return (
     <SidebarGroup {...props}>
       <SidebarGroupContent>
-        <SidebarMenuItem>
-          <SidebarMenuButton className="ml-auto w-fit" onClick={toggleSidebar}>
-            {isExpanded ? <PanelLeftIcon /> : <PanelRight />}
-          </SidebarMenuButton>
-        </SidebarMenuItem>
         <SidebarMenu>
           {items.map((item) => (
             <SidebarMenuItem key={item.title}>
