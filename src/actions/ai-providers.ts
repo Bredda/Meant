@@ -20,10 +20,20 @@ export function getProvidersSettings() {
   return ipc.client.aiProviders.getAllProviders();
 }
 
-export function setProviderKey(input: ConfiguredProvider) {
-  return ipc.client.aiProviders.setProvider(input);
+export function trySettingProviderKey(input: ConfiguredProvider) {
+  return ipc.client.aiProviders.trySettingProvider(input);
 }
 
 export function deleteProviderKey(providerId: ProviderIdInput) {
   return ipc.client.aiProviders.deleteProvider(providerId);
+}
+
+/**
+ * Picks a model for the first configured provider (in AI_PROVIDER_IDS
+ * order). Only meaningful once a real model picker exists — the graph
+ * itself currently only knows how to talk to Anthropic regardless of
+ * what's returned here.
+ */
+export async function getDefaultModel(): Promise<string> {
+  return "";
 }

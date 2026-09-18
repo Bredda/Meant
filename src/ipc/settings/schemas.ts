@@ -3,7 +3,6 @@ import { THEME_MODES } from "@/types/theme-mode";
 import { UI_SCALES } from "@/types/ui-scale";
 
 export const themeModeSchema = z.enum(THEME_MODES);
-
 export const uiScaleSchema = z.enum(UI_SCALES);
 
 export const userConfigSchema = z.object({

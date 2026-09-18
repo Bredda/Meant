@@ -16,6 +16,7 @@ const config: ForgeConfig = {
   ],
   packagerConfig: {
     asar: true,
+    extraResource: ["src/server/db/migrations"],
   },
   plugins: [
     new VitePlugin({

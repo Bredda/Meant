@@ -2,7 +2,8 @@ import { createFileRoute } from "@tanstack/react-router";
 import { BrainCircuit, Info, Settings2, Squirrel } from "lucide-react";
 import { useCallback } from "react";
 import { z } from "zod";
-import { AiProviderSettings } from "@/components/ai-provider-settings";
+import { AiProviderSettings } from "@/components/settings/ai-provider-settings";
+import { UiPrefsForm } from "@/components/settings/ui-prefs";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
@@ -43,7 +44,9 @@ function SettingsPage() {
           </TabsList>
           <ScrollBar orientation="horizontal" />
         </ScrollArea>
-        <TabsContent value="ui-prefs">UI preferences</TabsContent>
+        <TabsContent value="ui-prefs">
+          <UiPrefsForm className="w-2xl" />
+        </TabsContent>
         <TabsContent value="ai-providers">
           <AiProviderSettings />
         </TabsContent>

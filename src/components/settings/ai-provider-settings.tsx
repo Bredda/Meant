@@ -1,9 +1,15 @@
-import { CheckIcon, RefreshCcw, Save, TrashIcon } from "lucide-react";
+import {
+  AlertCircleIcon,
+  CheckIcon,
+  RefreshCcw,
+  Save,
+  TrashIcon,
+} from "lucide-react";
 import { useCallback, useEffect, useState, useTransition } from "react";
 import {
   deleteProviderKey,
   getProvidersSettings,
-  setProviderKey,
+  trySettingProviderKey,
 } from "@/actions/ai-providers";
 import {
   Accordion,
@@ -13,15 +19,17 @@ import {
 } from "@/components/ui/accordion";
 import type { ConfiguredProvider } from "@/ipc/ai-providers/schemas";
 import type { AiProviderId } from "@/types/ai-provider";
-import { Badge } from "./ui/badge";
-import { Button } from "./ui/button";
+import { cn } from "@/utils/tailwind";
+import { Alert, AlertDescription, AlertTitle } from "../ui/alert";
+import { Badge } from "../ui/badge";
+import { Button } from "../ui/button";
 import {
   FieldDescription,
   FieldGroup,
   FieldLegend,
   FieldSet,
-} from "./ui/field";
-import { Input } from "./ui/input";
+} from "../ui/field";
+import { Input } from "../ui/input";
 
 const providers: {
   code: AiProviderId;
@@ -34,22 +42,6 @@ const providers: {
   {
     code: "openai",
     name: "Open AI",
-  },
-  {
-    code: "openrouter",
-    name: "Open Router",
-  },
-  {
-    code: "google",
-    name: "Google",
-  },
-  {
-    code: "ollama",
-    name: "Ollama",
-  },
-  {
-    code: "lmstudio",
-    name: "LLM Studio",
   },
 ];
 
@@ -81,7 +73,7 @@ export function AiProviderSettings() {
         </p>
       </FieldDescription>
       <FieldGroup>
-        <Accordion className="max-w-2xl" type="multiple">
+        <Accordion type="multiple">
           {providers.map((provider) => {
             const key = configuredProviders.find(
               (c) => c.providerId === provider.code
@@ -115,16 +107,26 @@ function ProviderKeyItem({
   onChange: () => void;
 }) {
   const [apiKey, setApiKey] = useState("");
+  const [saveError, setSaveError] = useState<string | null>(null);
   const [isSaving, startSave] = useTransition();
   const [isDeleting, startDelete] = useTransition();
 
   const handleSave = useCallback(() => {
+    setSaveError(null);
     const trimmed = apiKey.trim();
     if (!trimmed) {
       return;
     }
     startSave(async () => {
-      await setProviderKey({ apiKey: trimmed, providerId: provider.code });
+      const { error } = await trySettingProviderKey({
+        apiKey: trimmed,
+        providerId: provider.code,
+      });
+      if (error) {
+        setSaveError(error);
+        setApiKey("");
+        return;
+      }
       setApiKey("");
       onChange();
     });
@@ -166,7 +168,7 @@ function ProviderKeyItem({
           <Badge variant="destructive">Not configured</Badge>
         )}
       </AccordionTrigger>
-      <AccordionContent>
+      <AccordionContent className={cn("h-auto")}>
         <div className="flex flex-row items-center gap-2">
           <Input
             aria-label={`${provider.name} API key`}
@@ -193,6 +195,18 @@ function ProviderKeyItem({
             <TrashIcon /> Delete key
           </Button>
         </div>
+        {/** biome-ignore lint/suspicious/noLeakedRender: <explanation> */}
+        {saveError && (
+          <Alert variant="destructive">
+            <AlertCircleIcon />
+            <AlertTitle>
+              New key has <span className="font-bold">NOT</span> been saved{" "}
+            </AlertTitle>{" "}
+            <AlertDescription>
+              <p>{saveError}</p>
+            </AlertDescription>
+          </Alert>
+        )}
       </AccordionContent>
     </AccordionItem>
   );

@@ -5,7 +5,7 @@ import {
   hasAnyProvider,
   hasProvider,
   listProviders,
-  setProvider,
+  trySettingProvider,
 } from "./handlers";
 
 export const aiProviders = {
@@ -15,5 +15,5 @@ export const aiProviders = {
   hasAnyProvider,
   hasProvider,
   listProviders,
-  setProvider,
+  trySettingProvider,
 };

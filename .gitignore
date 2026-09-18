@@ -59,7 +59,13 @@ typings/
 
 # dotenv environment variables file
 .env
+.env.local
 .env.test
+
+# Raw model dumps from scripts/ai-models/fetch-models.ts and the curation
+# draft they feed (curated/reviewed output is committed separately)
+scripts/ai-models/raw/
+scripts/ai-models/curated/
 
 # parcel-bundler cache (https://parceljs.org/)
 .cache
@@ -102,3 +108,6 @@ out/
 
 # Tanstack
 .tanstack/
+
+# Local dev SQLite database (drizzle-kit)
+.data/

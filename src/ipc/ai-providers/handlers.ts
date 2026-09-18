@@ -6,7 +6,7 @@ import {
   hasAnyProviderKey,
   hasProviderKey,
   listConfiguredProviders,
-  setProviderKey,
+  trySettingProviderKey,
 } from "@/services/ai-providers/service";
 import { configuredProviderSchema, providerIdInputSchema } from "./schemas";
 
@@ -22,11 +22,12 @@ export const getMaskedProvider = os
   .input(providerIdInputSchema)
   .handler(({ input }) => getMaskedProviderKey(input));
 
-export const setProvider = os
+export const trySettingProvider = os
   .input(configuredProviderSchema)
-  .handler(({ input }) => {
-    setProviderKey(input.providerId, input.apiKey);
-  });
+  .handler(
+    async ({ input }) =>
+      await trySettingProviderKey(input.providerId, input.apiKey)
+  );
 
 export const deleteProvider = os
   .input(providerIdInputSchema)

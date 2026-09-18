@@ -21,7 +21,8 @@ export function SettingsProvider({ children }: SettingsProviderProps) {
   }, [resolvedTheme]);
 
   useEffect(() => {
-    document.documentElement.dataset.uiScale = uiScale;
+    const root = document.documentElement;
+    root.setAttribute("data-font-scale", uiScale);
   }, [uiScale]);
 
   return children;

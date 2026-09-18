@@ -1,0 +1,238 @@
+[
+  {
+    "displayName": "Claude Fable 5.1",
+    "description": "For demanding reasoning and long-horizon agentic work",
+    "id": "anthropic:claude-fable-5-1",
+    "modelId": "claude-fable-5-1",
+    "pricing": {
+      "input": 10,
+      "output": 50
+    },
+    "providerId": "anthropic",
+    "capabilities": {
+      "reasoning": true,
+      "structuredOutput": true,
+      "tools": true,
+      "vision": true
+    },
+    "contextWindow": 1000000,
+    "maxOutputTokens": 128000,
+    "type": "llm"
+  },
+  {
+    "displayName": "Claude Haiku 4.5",
+    "id": "anthropic:claude-haiku-4-5-20251001",
+    "description": "Fastest model with near-frontier intelligence",
+    "modelId": "claude-haiku-4-5-20251001",
+    "pricing": {
+      "input": 1,
+      "output": 5
+    },
+    "providerId": "anthropic",
+    "capabilities": {
+      "reasoning": true,
+      "structuredOutput": true,
+      "tools": true,
+      "vision": true
+    },
+    "contextWindow": 200000,
+    "maxOutputTokens": 64000,
+    "type": "llm"
+  },
+  {
+    "displayName": "Claude Opus 5",
+    "description": "For complex agentic coding and enterprise work",
+    "id": "anthropic:claude-opus-5",
+    "modelId": "claude-opus-5",
+    "pricing": {
+      "input": 5,
+      "output": 25
+    },
+    "providerId": "anthropic",
+    "capabilities": {
+      "reasoning": true,
+      "structuredOutput": true,
+      "tools": true,
+      "vision": true
+    },
+    "contextWindow": 1000000,
+    "maxOutputTokens": 128000,
+    "type": "llm"
+  },
+  {
+    "displayName": "Claude Sonnet 5",
+    "description": "The best combination of speed and intelligence",
+    "id": "anthropic:claude-sonnet-5",
+    "modelId": "claude-sonnet-5",
+    "pricing": {
+      "input": 2,
+      "output": 10
+    },
+    "providerId": "anthropic",
+    "capabilities": {
+      "reasoning": true,
+      "structuredOutput": true,
+      "tools": true,
+      "vision": true
+    },
+    "contextWindow": 1000000,
+    "maxOutputTokens": 128000,
+    "type": "llm"
+  },
+  {
+    "displayName": "Gemini 3.5 Flash Lite",
+    "description": "Low-latency, cost-effective multimodal model",
+    "id": "google:gemini-3.5-flash-lite",
+    "modelId": "gemini-3.5-flash-lite",
+    "pricing": {
+      "input": 1050000,
+      "output": 65000
+    },
+    "providerId": "google",
+    "capabilities": {
+      "reasoning": true,
+      "structuredOutput": false,
+      "tools": false,
+      "vision": false
+    },
+    "contextWindow": 1048576,
+    "maxOutputTokens": 65536,
+    "type": "llm"
+  },
+  {
+    "displayName": "Gemini 3.8 Flash",
+    "description": " engineered for long-horizon software engineering, autonomous agents, and complex enterprise workflows",
+    "id": "google:gemini-3.8-flash",
+    "modelId": "gemini-3.8-flash",
+    "pricing": {
+      "input": 0,
+      "output": 0
+    },
+    "providerId": "google",
+    "capabilities": {
+      "reasoning": true,
+      "structuredOutput": false,
+      "tools": false,
+      "vision": false
+    },
+    "contextWindow": 1048576,
+    "maxOutputTokens": 65536,
+    "type": "llm"
+  },
+  {
+    "displayName": "Gemini Embedding 2",
+    "id": "google:gemini-embedding-2",
+    "modelId": "gemini-embedding-2",
+    "pricing": {
+      "input": 0,
+      "output": 0
+    },
+    "providerId": "google",
+    "maxInputTokens": 8192,
+    "type": "embedding"
+  },
+  {
+    "displayName": "gpt-5.6-luna",
+    "description": "Optimized for cost-sensitive workloads",
+    "id": "openai:gpt-5.6-luna",
+    "modelId": "gpt-5.6-luna",
+    "pricing": {
+      "input": 0.2,
+      "output": 1.2
+    },
+    "providerId": "openai",
+    "capabilities": {
+      "reasoning": true,
+      "structuredOutput": true,
+      "tools": true,
+      "vision": true
+    },
+    "contextWindow": 1050000,
+    "maxOutputTokens": 128000,
+    "type": "llm"
+  },
+  {
+    "displayName": "gpt-5.6-sol",
+    "description": "For complex professional work",
+    "id": "openai:gpt-5.6-sol",
+    "modelId": "gpt-5.6-sol",
+    "pricing": {
+      "input": 4,
+      "output": 20
+    },
+    "providerId": "openai",
+    "capabilities": {
+      "reasoning": true,
+      "structuredOutput": true,
+      "tools": true,
+      "vision": true
+    },
+    "contextWindow": 1050000,
+    "maxOutputTokens": 128000,
+    "type": "llm"
+  },
+  {
+    "displayName": "gpt-5.6-terra",
+    "description": "Balances intelligence and cost",
+    "id": "openai:gpt-5.6-terra",
+    "modelId": "gpt-5.6-terra",
+    "pricing": {
+      "input": 2,
+      "output": 12
+    },
+    "providerId": "openai",
+    "capabilities": {
+      "reasoning": true,
+      "structuredOutput": true,
+      "tools": true,
+      "vision": true
+    },
+    "contextWindow": 1050000,
+    "maxOutputTokens": 128000,
+    "type": "llm"
+  },
+  {
+    "displayName": "gpt-6-astra",
+    "description": "Built for the hardest end-to-end work",
+    "id": "openai:gpt-6-astra",
+    "modelId": "gpt-6-astra",
+    "pricing": {
+      "input": 10,
+      "output": 50
+    },
+    "providerId": "openai",
+    "capabilities": {
+      "reasoning": true,
+      "structuredOutput": true,
+      "tools": true,
+      "vision": true
+    },
+    "contextWindow": 1050000,
+    "maxOutputTokens": 128000,
+    "type": "llm"
+  },
+  {
+    "displayName": "text-embedding-3-large",
+    "id": "openai:text-embedding-3-large",
+    "modelId": "text-embedding-3-large",
+    "pricing": {
+      "input": 0,
+      "output": 0
+    },
+    "providerId": "openai",
+    "maxInputTokens": 0,
+    "type": "embedding"
+  },
+  {
+    "displayName": "text-embedding-3-small",
+    "id": "openai:text-embedding-3-small",
+    "modelId": "text-embedding-3-small",
+    "pricing": {
+      "input": 0,
+      "output": 0
+    },
+    "providerId": "openai",
+    "maxInputTokens": 0,
+    "type": "embedding"
+  }
+]
