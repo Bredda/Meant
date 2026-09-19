@@ -4,6 +4,7 @@ import {
   getMaskedProvider,
   hasAnyProvider,
   hasProvider,
+  listConfiguredProvidersModels,
   listProviders,
   trySettingProvider,
 } from "./handlers";
@@ -14,6 +15,7 @@ export const aiProviders = {
   getMaskedProvider,
   hasAnyProvider,
   hasProvider,
+  listConfiguredProvidersModels,
   listProviders,
   trySettingProvider,
 };

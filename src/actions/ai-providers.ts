@@ -28,6 +28,10 @@ export function deleteProviderKey(providerId: ProviderIdInput) {
   return ipc.client.aiProviders.deleteProvider(providerId);
 }
 
+export function listAvailableLlms() {
+  return ipc.client.aiProviders.listConfiguredProvidersModels()
+}
+
 /**
  * Picks a model for the first configured provider (in AI_PROVIDER_IDS
  * order). Only meaningful once a real model picker exists — the graph

@@ -1,7 +1,7 @@
 import { ChatAnthropic } from "@langchain/anthropic";
 import type { Runnable } from "@langchain/core/runnables";
 import type { z } from "zod";
-import { getProviderKey } from "@/services/ai-providers/service";
+import { getProviderKey } from "@/server/services/ai-providers-service";
 import type { ModelConfig } from "@/types/agents";
 import type { AiProviderId } from "@/types/ai-provider";
 

@@ -14,7 +14,7 @@ import {
   getThread,
   getThreadMessages,
   touchThread,
-} from "@/services/threads";
+} from "@/server/services/threads-service";
 import {
   toBaseMessages,
   toChatMessages,

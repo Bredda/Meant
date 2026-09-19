@@ -1,4 +1,4 @@
-import { listConfiguredProviders } from "@/services/ai-providers/service";
+import { listConfiguredProviders } from "@/server/services/ai-providers-service";
 import {
   aiModelSchema,
   type EmbeddingModel,

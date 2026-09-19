@@ -1,7 +1,11 @@
 import { os } from "@orpc/server";
 import { z } from "zod";
 import { threadMessageSchema, threadSchema } from "@/ipc/agents/schema";
-import { getThread, getThreadMessages, listThreads } from "@/services/threads";
+import {
+  getThread,
+  getThreadMessages,
+  listThreads,
+} from "@/server/services/threads-service";
 import { threadIdInputSchema } from "./schema";
 
 export const list = os

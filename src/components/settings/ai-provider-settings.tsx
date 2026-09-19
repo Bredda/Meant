@@ -18,11 +18,13 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import type { ConfiguredProvider } from "@/ipc/ai-providers/schemas";
+import { useModelStore } from "@/stores/model-store";
 import type { AiProviderId } from "@/types/ai-provider";
 import { cn } from "@/utils/tailwind";
 import { Alert, AlertDescription, AlertTitle } from "../ui/alert";
 import { Badge } from "../ui/badge";
 import { Button } from "../ui/button";
+import { Card, CardDescription, CardHeader, CardTitle } from "../ui/card";
 import {
   FieldDescription,
   FieldGroup,
@@ -30,6 +32,7 @@ import {
   FieldSet,
 } from "../ui/field";
 import { Input } from "../ui/input";
+import { Separator } from "../ui/separator";
 
 const providers: {
   code: AiProviderId;
@@ -49,49 +52,80 @@ export function AiProviderSettings() {
   const [configuredProviders, setConfiguredProviders] = useState<
     ConfiguredProvider[]
   >([]);
+  const llms = useModelStore((s) => s.llms);
+  const refreshModels = useModelStore((s) => s.load);
   const [, startListConfiguredProviders] = useTransition();
 
   const refresh = useCallback(() => {
-    startListConfiguredProviders(() =>
-      getProvidersSettings().then(setConfiguredProviders)
-    );
-  }, []);
+    startListConfiguredProviders(() => {
+      getProvidersSettings().then(setConfiguredProviders);
+    });
+    refreshModels();
+  }, [refreshModels]);
 
   useEffect(() => refresh(), [refresh]);
 
   return (
-    <FieldSet>
-      <FieldLegend>AI Providers</FieldLegend>
-      <FieldDescription>
-        <p>
-          Your API keys stay on your device, encrypted at rest, and are only
-          decrypted when required.
-        </p>
-        <p>
-          Keys are stored locally in your app data folder and are never sent to
-          our servers. [View key storage]
-        </p>
-      </FieldDescription>
-      <FieldGroup>
-        <Accordion type="multiple">
-          {providers.map((provider) => {
-            const key = configuredProviders.find(
-              (c) => c.providerId === provider.code
-            )?.apiKey;
-            const isSet = !!key;
-            return (
-              <ProviderKeyItem
-                isSet={isSet}
-                key={provider.code}
-                maskedKey={key}
-                onChange={refresh}
-                provider={provider}
-              />
-            );
-          })}
-        </Accordion>
-      </FieldGroup>
-    </FieldSet>
+    <div className="space-y-4">
+      <FieldSet>
+        <FieldLegend>AI Providers</FieldLegend>
+        <FieldDescription>
+          <p>
+            Your API keys stay on your device, encrypted at rest, and are only
+            decrypted when required.
+          </p>
+          <p>
+            Keys are stored locally in your app data folder and are never sent
+            to our servers. [View key storage]
+          </p>
+        </FieldDescription>
+        <FieldGroup>
+          <Accordion type="multiple">
+            {providers.map((provider) => {
+              const key = configuredProviders.find(
+                (c) => c.providerId === provider.code
+              )?.apiKey;
+              const isSet = !!key;
+              return (
+                <ProviderKeyItem
+                  isSet={isSet}
+                  key={provider.code}
+                  maskedKey={key}
+                  onChange={refresh}
+                  provider={provider}
+                />
+              );
+            })}
+          </Accordion>
+        </FieldGroup>
+      </FieldSet>
+      <Separator className="w-full" orientation="horizontal" />
+      <FieldSet>
+        <FieldLegend>AI Models</FieldLegend>
+        <FieldDescription>
+          <p>
+            Your API keys stay on your device, encrypted at rest, and are only
+            decrypted when required.
+          </p>
+          <p>
+            Keys are stored locally in your app data folder and are never sent
+            to our servers. [View key storage]
+          </p>
+        </FieldDescription>
+        <FieldGroup>
+          {llms.map((m) => (
+            <Card key={m.modelId}>
+              <CardHeader>
+                <CardTitle>
+                  {m.providerId} - {m.displayName}
+                </CardTitle>
+                <CardDescription>{m.description}</CardDescription>
+              </CardHeader>
+            </Card>
+          ))}
+        </FieldGroup>
+      </FieldSet>
+    </div>
   );
 }
 

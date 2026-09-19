@@ -5,7 +5,8 @@ import {
   hasSecret,
   listKeys,
   setSecret,
-} from "@/services/vault/store";
+} from "@/server/services/vault-service";
+
 import { AI_PROVIDER_IDS, type AiProviderId } from "@/types/ai-provider";
 
 const KEY_PREFIX = "ai-provider:";

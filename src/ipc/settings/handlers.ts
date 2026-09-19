@@ -1,5 +1,8 @@
 import { os } from "@orpc/server";
-import { getUserConfig, saveUserConfig } from "@/services/settings";
+import {
+  getUserConfig,
+  saveUserConfig,
+} from "@/server/services/settings-service";
 import { updateUserConfigInputSchema } from "./schemas";
 
 export const getConfig = os.handler(() => getUserConfig());

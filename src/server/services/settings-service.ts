@@ -6,7 +6,7 @@ import {
   type UserConfig,
   userConfigSchema,
 } from "@/ipc/settings/schemas";
-import { applyNativeThemeMode } from "@/services/theme";
+import { applyNativeThemeMode } from "@/server/services/theme-service";
 
 const CONFIG_PATH = path.join(app.getPath("userData"), "config.json");
 

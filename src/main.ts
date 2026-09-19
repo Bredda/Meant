@@ -7,8 +7,8 @@ import {
 } from "electron-devtools-installer";
 import { UpdateSourceType, updateElectronApp } from "update-electron-app";
 import { ipcContext } from "@/ipc/context";
-import { getUserConfig } from "@/services/settings";
-import { applyNativeThemeMode } from "@/services/theme";
+import { getUserConfig } from "@/server/services/settings-service";
+import { applyNativeThemeMode } from "@/server/services/theme-service";
 import { IPC_CHANNELS, inDevelopment } from "./constants";
 import { getBasePath } from "./utils/path";
 

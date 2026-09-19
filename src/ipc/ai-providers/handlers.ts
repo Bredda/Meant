@@ -1,4 +1,5 @@
 import { os } from "@orpc/server";
+import { listAvailableLlms } from "@/server/services/ai-models-service";
 import {
   deleteProviderKey,
   getMaskedProviderKey,
@@ -7,7 +8,7 @@ import {
   hasProviderKey,
   listConfiguredProviders,
   trySettingProviderKey,
-} from "@/services/ai-providers/service";
+} from "@/server/services/ai-providers-service";
 import { configuredProviderSchema, providerIdInputSchema } from "./schemas";
 
 export const hasAnyProvider = os.handler(() => hasAnyProviderKey());
@@ -36,3 +37,7 @@ export const deleteProvider = os
   });
 
 export const getAllProviders = os.handler(() => getProviders());
+
+export const listConfiguredProvidersModels = os.handler(() =>
+  listAvailableLlms()
+);
